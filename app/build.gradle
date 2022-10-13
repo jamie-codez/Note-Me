@@ -1,0 +1,134 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+// Gets the version code -- number of git tags to this end
+def getBuildVersionCode = { ->
+    try {
+        def code = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'tag', '--list'
+            standardOutput = code
+        }
+        return code.toString().split("\n").size()
+    }
+    catch (ignored) {
+        return -1
+    }
+}
+
+// Gets the version name from the latest Git tag
+def getBuildVersionName = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--dirty'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return null
+    }
+}
+
+android {
+    namespace 'com.code.jamie.noteme'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.code.jamie.noteme"
+        minSdk 21
+        targetSdk 33
+        versionCode getBuildVersionCode()
+        versionName getBuildVersionName()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    applicationVariants.all { variant ->
+
+        //Only name the release variants -- might not be absolutely necessary as CI handles the publishing, but good for local manual builds
+        if (variant.buildType.name == "release") {
+
+            def apkName = "cinch-markets"
+            variant.outputs.each { output ->
+                def apk = output.outputFileName.replace(".apk", "")
+
+                apkName += "-" + defaultConfig.versionName
+                if (variant.buildType.name == "release") {
+                    apkName += "-release.apk"
+                } else {
+                    apkName += ".apk"
+                }
+                if (!output.zipAlign) {
+                    apkName = apkName.replace(".apk", "-unaligned.apk")
+                }
+
+                output.outputFileName = new File(apk, apkName)
+                logger.info("INFO: Set outputFile to "
+                        + output.outputFile
+                        + " for [" + output.name + "]")
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.core:core-ktx:$rootProject.androidxCore"
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
+    // Dagger hilt
+    implementation("com.google.dagger:hilt-android:$rootProject.daggerHiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$rootProject.daggerHiltVersion")
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    // GSON
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutineVersion"
+
+    // define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$rootProject.okHttpBom"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExt"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+}
+
+kapt {
+    correctErrorTypes true
+}
