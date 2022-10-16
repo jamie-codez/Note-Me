@@ -7,3 +7,11 @@ The applications main goal is to help you create short notes which are stored lo
 This indicates that once synced the application can be used if you are not connected.
 
 ![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%201.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%202.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%203.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%205.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%206.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%207.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2019.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2020.png)
+![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2022.png)
