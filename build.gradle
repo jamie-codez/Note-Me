@@ -13,10 +13,12 @@ ext {
     constraintLayoutVersion='2.1.4'
     daggerHiltVersion='2.44'
     navVersion = '2.5.2'
-    roomVersion = '1.0.0'
+    roomVersion = '2.4.0'
     coroutineVersion='1.6.4'
     retrofitVersion='2.9.0'
     okHttpBom='4.10.0'
+    circularImage = '3.1.0'
+    lifecycleVersion = '2.5.1'
 
 
     // Testing
