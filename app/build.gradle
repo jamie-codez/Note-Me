@@ -116,6 +116,8 @@ dependencies {
     implementation "androidx.room:room-paging:$rootProject.roomVersion"
     implementation "androidx.room:room-common:$rootProject.roomVersion"
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation 'com.google.dagger:dagger:2.44'
+    implementation 'com.google.dagger:dagger-compiler:2.44'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
 
