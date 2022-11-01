@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.code.jamie.noteme.vo.models.User
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
-//@TypeConverters(Converters::class)
+@TypeConverters(Converters::class)
 abstract class NoteMeDB : RoomDatabase() {
     abstract fun noteMeDao(): NoteMeDao
 
