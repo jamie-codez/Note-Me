@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
+//    id 'com.google.dagger.hilt.android'
 }
 
 // Gets the version code -- number of git tags to this end
@@ -106,8 +106,8 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
     // Dagger hilt
-    implementation("com.google.dagger:hilt-android:$rootProject.daggerHiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$rootProject.daggerHiltVersion")
+//    implementation("com.google.dagger:hilt-android:$rootProject.daggerHiltVersion")
+//    kapt("com.google.dagger:hilt-android-compiler:$rootProject.daggerHiltVersion")
 
     // Circular ImageView
     implementation "de.hdodenhof:circleimageview:$rootProject.circularImage"
