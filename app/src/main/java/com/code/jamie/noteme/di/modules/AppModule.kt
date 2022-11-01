@@ -1,4 +1,4 @@
-package com.code.jamie.noteme.di
+package com.code.jamie.noteme.di.modules
 
 import android.app.Application
 import androidx.room.Room
@@ -15,10 +15,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import kotlin.math.log
 
 @Module
 class AppModule {
