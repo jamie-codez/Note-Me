@@ -15,3 +15,12 @@ This indicates that once synced the application can be used if you are not conne
 ![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2019.png)
 ![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2020.png)
 ![Splash Screen](https://github.com/jamie-codez/Note-Me/blob/development/Docs%20and%20Statics/Designs/Frame%2022.png)
+
+### Frameworks
+The frameworks used to build this application are as follows:
+* [Android Native Framework](https://developer.android.com/guide/platform)
+* [Android SDK 33](https://developer.android.com/guide/platform)
+* [Android Studio](https://developer.android.com/studio)
+
+### Libraries and Plugins
+The application was build with the android app architecture in mind so as to maximize and implement the best development features recommended by the Google android team.ß

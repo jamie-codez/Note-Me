@@ -2,6 +2,7 @@ package com.code.jamie.noteme.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.code.jamie.noteme.api.NoteMeRepo
@@ -16,14 +17,14 @@ import retrofit2.Response
 class MainViewModel (application: Application):AndroidViewModel(application) {
 
     private val jwt:MutableLiveData<String> = MutableLiveData()
-    private val noteMeRepo:NoteMeRepo by lazy { NoteMeRepo() }
-    fun register(user: User):String{
+    private val noteMeRepo:NoteMeRepo by lazy { NoteMeRepo(noteMeService = NoteMeService) }
+    fun register(user: User):LiveData<String>{
         viewModelScope.launch {
             val call = noteMeRepo.register(user)
             call.enqueue(object :Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
-                        //TODO Snackbar or  Toast
+                        jwt.postValue(response.body())
                     }
                 }
 
@@ -33,6 +34,7 @@ class MainViewModel (application: Application):AndroidViewModel(application) {
 
             })
         }
+        return jwt?
     }
 
 }
