@@ -23,4 +23,10 @@ The frameworks used to build this application are as follows:
 * [Android Studio](https://developer.android.com/studio)
 
 ### Libraries and Plugins
-The application was build with the android app architecture in mind so as to maximize and implement the best development features recommended by the Google android team.ß
+The application was build with the android app architecture in mind so as to maximize and implement the best development features recommended by the Google android team.
+* [Dagger Hilt]()
+* [Lifecycle Components]()
+* [Room Database]()
+* [Navigation Components]()
+* [Retrofit]()
+* 
