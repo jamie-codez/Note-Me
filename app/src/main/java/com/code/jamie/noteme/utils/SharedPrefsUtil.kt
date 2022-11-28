@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 class SharedPrefsUtil {
     companion object {
         private val TAG = SharedPrefsUtil::class.java.simpleName
-        private const val CURRENT_DRAFT_ID = "current_draft_id"
+        private const val JWT = "jwt"
         private const val NOTE_ME_PREFS = "note_me_prefs"
 
         private fun getSharedPrefs(context: Context): SharedPreferences {
@@ -28,14 +28,14 @@ class SharedPrefsUtil {
         }
 
         @JvmStatic
-        fun setCurrentDraftId(context: Context, label: String, id: String) {
+        fun setCurrentJWT(context: Context, label: String, id: String) {
             val editor = getNoteMePrefs(context).edit()
-            editor.putString(CURRENT_DRAFT_ID + label.lowercase(), id)
+            editor.putString(JWT + label.lowercase(), id)
                 .apply()
         }
 
         @JvmStatic
-        fun getCurrentDraftId(context: Context, label: String): String? =
-            getNoteMePrefs(context).getString(CURRENT_DRAFT_ID + label.lowercase(), null)
+        fun getCurrentJWT(context: Context, label: String): String? =
+            getNoteMePrefs(context).getString(JWT + label.lowercase(), null)
     }
 }
