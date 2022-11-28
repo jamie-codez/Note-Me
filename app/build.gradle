@@ -108,6 +108,7 @@ dependencies {
     // Dagger hilt
     implementation("com.google.dagger:hilt-android:$rootProject.daggerHiltVersion")
     implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'androidx.room:room-ktx:2.5.0-beta02'
     kapt("com.google.dagger:hilt-android-compiler:$rootProject.daggerHiltVersion")
 
     // Circular ImageView
