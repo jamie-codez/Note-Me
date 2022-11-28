@@ -14,12 +14,14 @@ import com.code.jamie.noteme.models.RegisterModel
 import com.code.jamie.noteme.models.ResponseWrapper
 import com.code.jamie.noteme.vo.models.User
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel @Inject constructor(application: Application, noteMeService: NoteMeService) :
     AndroidViewModel(application) {
 
@@ -51,12 +53,12 @@ class MainViewModel @Inject constructor(application: Application, noteMeService:
     fun login(email: String, password: String): MutableLiveData<LoginWrapper?> {
         viewModelScope.launch {
             val call = noteMeServiceImpl.login(email, password)
-            call.enqueue(object :Callback<LoginWrapper>{
+            call.enqueue(object : Callback<LoginWrapper> {
                 override fun onResponse(
                     call: Call<LoginWrapper>,
                     response: Response<LoginWrapper>
                 ) {
-                    if (response.isSuccessful && response.code()==200){
+                    if (response.isSuccessful && response.code() == 200) {
                         loginResponse.postValue(response.body())
                     }
                 }
