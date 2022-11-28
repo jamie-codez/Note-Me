@@ -117,6 +117,9 @@ dependencies {
     implementation "androidx.room:room-common:$rootProject.roomVersion"
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation 'com.google.dagger:dagger:2.44'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter'
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter'
     kapt 'com.google.dagger:dagger-compiler:2.44'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
@@ -146,6 +149,17 @@ dependencies {
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExt"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
+
+
+    // Optional -- Robolectric environment
+    testImplementation "androidx.test:core:$rootProject.androidXTestVersion"
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    // Optional -- mockito-kotlin
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$rootProject.mockitoKotlinVersion"
+    // Optional -- Mockk framework
+    testImplementation "io.mockk:mockk:$rootProject.mockkVersion"
 }
 
 kapt {
