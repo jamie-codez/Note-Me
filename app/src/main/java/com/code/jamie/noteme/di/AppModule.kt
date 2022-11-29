@@ -1,6 +1,8 @@
 package com.code.jamie.noteme.di
 
+import android.app.Application
 import android.content.Context
+import com.code.jamie.noteme.NoteMe
 import com.code.jamie.noteme.api.NoteMeService
 import com.code.jamie.noteme.db.NoteMeDB
 import com.code.jamie.noteme.db.NoteMeDao
@@ -19,6 +21,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     private const val baseUrl = ""
+
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
@@ -42,6 +45,11 @@ object AppModule {
     @Provides
     fun provideNoteMeDao(noteMeDB: NoteMeDB): NoteMeDao =
         noteMeDB.noteMeDao()
+
+    @Singleton
+    @Provides
+    fun provideApplication(): Application =
+        NoteMe()
 
 
     private fun client(): OkHttpClient =
