@@ -3,9 +3,11 @@ package com.code.jamie.noteme.di
 import android.app.Application
 import android.content.Context
 import com.code.jamie.noteme.NoteMe
+import com.code.jamie.noteme.api.NoteMeRepo
 import com.code.jamie.noteme.api.NoteMeService
 import com.code.jamie.noteme.db.NoteMeDB
 import com.code.jamie.noteme.db.NoteMeDao
+import com.code.jamie.noteme.db.RoomRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,6 +52,15 @@ object AppModule {
     @Provides
     fun provideApplication(): Application =
         NoteMe()
+    @Singleton
+    @Provides
+    fun provideNoteMeRepo(noteMeService:NoteMeService):NoteMeRepo =
+        NoteMeRepo(noteMeService)
+
+    @Singleton
+    @Provides
+    fun provideRoomRepo(noteMeDao: NoteMeDao):RoomRepo=
+        RoomRepo(noteMeDao)
 
 
     private fun client(): OkHttpClient =
