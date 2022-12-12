@@ -16,22 +16,23 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val noteMeRepo: NoteMeRepo,
+    private val roomViewModel: RoomViewModel,
     application: Application
 ) :
     AndroidViewModel(application) {
-    var registerMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var loginMessage: MutableLiveData<LoginResponseWrapper> = MutableLiveData()
-    var updateUserMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var deleteUserMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var logoutUserMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var resetPassUserMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var createNoteMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var updateNoteMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var getNotesNotesBody: MutableLiveData<NoteResponseWrapper> = MutableLiveData()
-    var deleteNoteMessage: MutableLiveData<MessageResponseWrapper> = MutableLiveData()
-    var user: MutableLiveData<UserResponseWrapper> = MutableLiveData()
+    var registerMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var loginMessage: MutableLiveData<LoginResponseWrapper?> = MutableLiveData()
+    var updateUserMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var deleteUserMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var logoutUserMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var resetPassUserMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var createNoteMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var updateNoteMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var getNotesNotesBody: MutableLiveData<NoteResponseWrapper?> = MutableLiveData()
+    var deleteNoteMessage: MutableLiveData<MessageResponseWrapper?> = MutableLiveData()
+    var user: MutableLiveData<UserResponseWrapper?> = MutableLiveData()
 
-    fun register(register: RegisterRequestWrapper): LiveData<MessageResponseWrapper> {
+    fun register(register: RegisterRequestWrapper): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             val reg = noteMeRepo.register(register)
             reg.enqueue(object : Callback<MessageResponseWrapper> {
@@ -52,7 +53,7 @@ class MainViewModel @Inject constructor(
         return registerMessage
     }
 
-    fun login(login: LoginRequestWrapper): LiveData<LoginResponseWrapper> {
+    fun login(login: LoginRequestWrapper): MutableLiveData<LoginResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.login(login).enqueue(object : Callback<LoginResponseWrapper> {
                 override fun onResponse(
@@ -72,7 +73,7 @@ class MainViewModel @Inject constructor(
         return loginMessage
     }
 
-    fun getUser(token: String, email: String): LiveData<UserResponseWrapper> {
+    fun getUser(token: String, email: String): MutableLiveData<UserResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.getUser(token, email).enqueue(object : Callback<UserResponseWrapper> {
                 override fun onResponse(
@@ -81,6 +82,17 @@ class MainViewModel @Inject constructor(
                 ) {
                     if (response.isSuccessful && response.code() == 200) {
                         user.postValue(response.body())
+                        roomViewModel.saveUser(
+                            UserDB(
+                                0,
+                                response.body()?.user!!.id,
+                                response.body()?.user!!.email,
+                                response.body()?.user!!.imageUrl,
+                                response.body()?.user!!.password,
+                                response.body()?.user!!.username,
+                                response.body()?.user!!.verified
+                            )
+                        )
                     }
                 }
 
@@ -93,7 +105,11 @@ class MainViewModel @Inject constructor(
         return user
     }
 
-    fun updateUser(token: String, email: String, user: User): LiveData<MessageResponseWrapper> {
+    fun updateUser(
+        token: String,
+        email: String,
+        user: User
+    ): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.updateUser(token, email, user)
                 .enqueue(object : Callback<MessageResponseWrapper> {
@@ -103,6 +119,17 @@ class MainViewModel @Inject constructor(
                     ) {
                         if (response.isSuccessful && response.code() == 200) {
                             updateUserMessage.postValue(response.body())
+                            roomViewModel.updateUserDB(
+                                UserDB(
+                                    0,
+                                    user.id,
+                                    user.username,
+                                    user.email,
+                                    user.imageUrl,
+                                    user.password,
+                                    user.verified
+                                )
+                            )
                         }
                     }
 
@@ -114,7 +141,7 @@ class MainViewModel @Inject constructor(
         return updateUserMessage
     }
 
-    fun deleteUser(token: String, email: String): LiveData<MessageResponseWrapper> {
+    fun deleteUser(token: String, email: String): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.deleteUser(token, email).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(
@@ -134,7 +161,7 @@ class MainViewModel @Inject constructor(
         return deleteUserMessage
     }
 
-    fun logout(email: String): LiveData<MessageResponseWrapper> {
+    fun logout(email: String): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.logout(email).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(
@@ -154,7 +181,7 @@ class MainViewModel @Inject constructor(
         return logoutUserMessage
     }
 
-    fun resetPassword(email: String): LiveData<MessageResponseWrapper> {
+    fun resetPassword(email: String): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.resetPassword(email).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(
@@ -174,7 +201,10 @@ class MainViewModel @Inject constructor(
         return resetPassUserMessage
     }
 
-    fun createNote(token: String, note: NoteRequestWrapper): LiveData<MessageResponseWrapper> {
+    fun createNote(
+        token: String,
+        note: NoteRequestWrapper
+    ): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.createNote(token, note).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(
@@ -194,7 +224,7 @@ class MainViewModel @Inject constructor(
         return createNoteMessage
     }
 
-    fun getNotes(token: String): LiveData<NoteResponseWrapper> {
+    fun getNotes(token: String): MutableLiveData<NoteResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.getNotes(token).enqueue(object : Callback<NoteResponseWrapper> {
                 override fun onResponse(
@@ -214,7 +244,10 @@ class MainViewModel @Inject constructor(
         return getNotesNotesBody
     }
 
-    fun updateNote(token: String, note: NoteOpRequestWrapper): LiveData<MessageResponseWrapper> {
+    fun updateNote(
+        token: String,
+        note: NoteOpRequestWrapper
+    ): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.updateNote(token, note).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(
@@ -234,7 +267,10 @@ class MainViewModel @Inject constructor(
         return updateNoteMessage
     }
 
-    fun deleteNote(token: String, note: NoteOpRequestWrapper): LiveData<MessageResponseWrapper> {
+    fun deleteNote(
+        token: String,
+        note: NoteOpRequestWrapper
+    ): MutableLiveData<MessageResponseWrapper?> {
         viewModelScope.launch {
             noteMeRepo.deleteNote(token, note).enqueue(object : Callback<MessageResponseWrapper> {
                 override fun onResponse(

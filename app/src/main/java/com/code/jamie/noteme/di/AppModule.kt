@@ -8,6 +8,7 @@ import com.code.jamie.noteme.api.NoteMeService
 import com.code.jamie.noteme.db.NoteMeDB
 import com.code.jamie.noteme.db.NoteMeDao
 import com.code.jamie.noteme.db.RoomRepo
+import com.code.jamie.noteme.ui.viewmodels.RoomViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,6 +62,9 @@ object AppModule {
     @Provides
     fun provideRoomRepo(noteMeDao: NoteMeDao):RoomRepo=
         RoomRepo(noteMeDao)
+    @Provides
+    fun provideRoomViewModel(roomRepo:RoomRepo,application: Application):RoomViewModel =
+        RoomViewModel(roomRepo,application)
 
 
     private fun client(): OkHttpClient =

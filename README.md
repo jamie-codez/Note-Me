@@ -1,3 +1,5 @@
+![Note Me Android CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note Me
+CI-CD.yaml/badge.svg)
 ## NoteMe Android App
 ### Description
 This is an android application that run natively on android devices
@@ -23,10 +25,19 @@ The frameworks used to build this application are as follows:
 * [Android Studio](https://developer.android.com/studio)
 
 ### Libraries and Plugins
-The application was build with the android app architecture in mind so as to maximize and implement the best development features recommended by the Google android team.
+
+The application was build with the android app architecture in mind so as to maximize and implement
+the best development features recommended by the Google android team.
+
 * [Dagger Hilt]()
 * [Lifecycle Components]()
 * [Room Database]()
 * [Navigation Components]()
 * [Retrofit]()
-* 
+
+### Environment
+
+At the start of the project I was on a Mac OS environment but later on moved to a Linux
+environment, Ata mimi sijui mbona nilihama.
+* [Linux - Ubuntu](https://www.ubuntu.com)
+* [Mac OS Monterey](https://www.apple.com/macos/monterey)

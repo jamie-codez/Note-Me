@@ -38,6 +38,11 @@ class RoomViewModel @Inject constructor(
             roomRepo.updateUser(userDB)
         }
     }
+    fun updateUserDB(user: UserDB){
+        viewModelScope.launch {
+            roomRepo.updateUserDB(user)
+        }
+    }
     fun deleteUser(user: UserDB){
         viewModelScope.launch {
             roomRepo.deleteUser(user)

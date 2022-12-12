@@ -12,21 +12,41 @@ interface NoteMeDao {
      */
     @Insert(onConflict = REPLACE)
     suspend fun saveUser(userRoom: UserDB)
+
     @Query("select * from user")
-    suspend fun getUser():List<UserDB>
+    suspend fun getUser(): List<UserDB>
+
     @Update
     suspend fun updateUser(userDB: UserDB)
+
+    @Query(
+        "update user set email=:email,username=:username,image_url=:imageUrl," +
+                "password=:password,verified=:verified where _id=:_id"
+    )
+    suspend fun updateUserDB(
+        _id: String,
+        email: String,
+        username: String,
+        imageUrl: String,
+        password: String,
+        verified: Boolean
+    )
+
     @Delete
     suspend fun deleteUser(userDB: UserDB)
+
     /**
      * Notes methods
      */
     @Insert(onConflict = REPLACE)
     suspend fun saveNote(noteDB: NoteDB)
+
     @Query("select * from note order by createdAt asc")
-    suspend fun getNotes():List<NoteDB>
+    suspend fun getNotes(): List<NoteDB>
+
     @Update
     suspend fun updateNote(noteDB: NoteDB)
+
     @Delete
     suspend fun deleteNote(noteDB: NoteDB)
 
