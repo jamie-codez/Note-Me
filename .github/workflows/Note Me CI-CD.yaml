@@ -1,6 +1,6 @@
 name: Note Me CI/CD
 on:
-  push:
+  pull-request:
     branches: [ master ]
 
 jobs:
