@@ -20,7 +20,7 @@ data class Note(
 @Entity(tableName = "note")
 data class NoteDB(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "_id") val _id: String,
+    @ColumnInfo(name = "id_obj") val _id: String,
     @ColumnInfo(name = "createdAt") val createdAt: Long,
     @ColumnInfo(name = "note") val note: String,
     @ColumnInfo(name = "owner") val owner: String,

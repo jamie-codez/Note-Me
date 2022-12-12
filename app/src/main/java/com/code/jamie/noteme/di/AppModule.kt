@@ -51,8 +51,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApplication(): Application =
-        NoteMe()
+    fun provideContext(application: Application):Context=
+        application.applicationContext
+
+//    @Singleton
+//    @Provides
+//    fun provideApplication(): Application =
+//        NoteMe()
     @Singleton
     @Provides
     fun provideNoteMeRepo(noteMeService:NoteMeService):NoteMeRepo =
@@ -62,6 +67,7 @@ object AppModule {
     @Provides
     fun provideRoomRepo(noteMeDao: NoteMeDao):RoomRepo=
         RoomRepo(noteMeDao)
+    @Singleton
     @Provides
     fun provideRoomViewModel(roomRepo:RoomRepo,application: Application):RoomViewModel =
         RoomViewModel(roomRepo,application)

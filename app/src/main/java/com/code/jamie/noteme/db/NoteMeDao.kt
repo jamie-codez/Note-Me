@@ -21,10 +21,10 @@ interface NoteMeDao {
 
     @Query(
         "update user set email=:email,username=:username,image_url=:imageUrl," +
-                "password=:password,verified=:verified where _id=:_id"
+                "password=:password,verified=:verified where id_obj=:id_obj"
     )
     suspend fun updateUserDB(
-        _id: String,
+        id_obj: String,
         email: String,
         username: String,
         imageUrl: String,

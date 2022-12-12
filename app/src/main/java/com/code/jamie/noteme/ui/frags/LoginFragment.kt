@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
             }
             val login = LoginRequestWrapper(email, password)
             viewModel.login(login).observe(viewLifecycleOwner) { resp ->
-                if (resp.message == "Login successful") {
+                if (resp?.message == "Login successful") {
                     Utils.setJWT(resp.accessToken, editor)
                     navController.navigate(R.id.action_authFragment_to_homeActivity)
                     requireActivity().finish()

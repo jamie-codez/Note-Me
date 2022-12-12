@@ -21,7 +21,7 @@ data class User(
 @Entity(tableName = "user")
 data class UserDB(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "_id") val _id: String,
+    @ColumnInfo(name = "id_obj") val _id: String,
     @ColumnInfo(name = "email") val email: String,
     @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "password") val password: String,
