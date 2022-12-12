@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Note-Me-Release
-          path: app/build/outputs/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
 
 
   create-release: # Job to create new github release and upload the generated file
