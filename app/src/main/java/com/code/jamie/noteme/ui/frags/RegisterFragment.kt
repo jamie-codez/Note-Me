@@ -101,7 +101,7 @@ class RegisterFragment : Fragment() {
                     val downloadUrl = task.toString()
                     val register = RegisterRequestWrapper(email, downloadUrl, password, username)
                     viewModel.register(register).observe(viewLifecycleOwner) {
-                        if (it.message == "User created successfully") {
+                        if (it?.message == "User created successfully") {
                             Utils.snackBar(binding.root, "${it.message}\nLogin")
                         } else {
                             Utils.snackBar(binding.root, "Error occurred. Try again")
