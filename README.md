@@ -1,5 +1,4 @@
-![Note Me Android CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note Me
-CI-CD.yaml/badge.svg)
+![Note Me Android CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg)
 ## NoteMe Android App
 ### Description
 This is an android application that run natively on android devices
