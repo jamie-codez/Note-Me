@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "340565275436",
+    "project_id": "ecommerce-softech",
+    "storage_bucket": "ecommerce-softech.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340565275436:android:16c98b94e90491ccaef289",
+        "android_client_info": {
+          "package_name": "com.code.jamie.noteme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340565275436-mukmsdusrtfpklb8h08u6dnrarfpf24j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbhxsfMlFww4pvvdUrz4cUhQNdyQhZ7VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340565275436-mukmsdusrtfpklb8h08u6dnrarfpf24j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340565275436:android:0774d5b87115ef7eaef289",
+        "android_client_info": {
+          "package_name": "com.softech.code.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340565275436-mukmsdusrtfpklb8h08u6dnrarfpf24j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbhxsfMlFww4pvvdUrz4cUhQNdyQhZ7VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340565275436-mukmsdusrtfpklb8h08u6dnrarfpf24j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
