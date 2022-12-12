@@ -23,7 +23,7 @@ data class UserDB(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "_id") val _id: String,
     @ColumnInfo(name = "email") val email: String,
-    @ColumnInfo(name = "image-url") val imageUrl: String,
+    @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "password") val password: String,
     @ColumnInfo(name = "username") val username: String,
     @ColumnInfo(name = "verified") val verified: Boolean
