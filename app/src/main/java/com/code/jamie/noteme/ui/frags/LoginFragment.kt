@@ -2,6 +2,7 @@ package com.code.jamie.noteme.ui.frags
 
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +19,7 @@ import com.code.jamie.noteme.databinding.FragmentLoginBinding
 import com.code.jamie.noteme.models.vo.LoginRequestWrapper
 import com.code.jamie.noteme.ui.viewmodels.MainViewModel
 import com.code.jamie.noteme.utils.Utils
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,10 +69,34 @@ class LoginFragment : Fragment() {
                     Utils.setEmail(email, editor)
                     navController.navigate(R.id.action_authFragment_to_homeFragment)
                     requireActivity().finish()
-                }else{
-                    Utils.snackBar(binding.root,"Error occurred. Try again")
+                } else {
+                    Utils.snackBar(binding.root, "Error occurred. Try again")
                 }
             }
+        }
+        binding.forgotPassTv.setOnClickListener {
+            val textInputEditText = TextInputEditText(requireContext()).apply {
+                hint = "Enter email address"
+                inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            }
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setTitle("Password reset")
+                .setView(textInputEditText)
+                .setPositiveButton(
+                    "Submit"
+                ) { _, _ ->
+                    val email = textInputEditText.text.toString().trim()
+                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        Utils.snackBar(binding.root,"Invalid email address")
+                        return@setPositiveButton
+                    }
+                    viewModel.resetPassword(email).observe(viewLifecycleOwner){
+                        Utils.snackBar(binding.root,it!!.message)
+                    }
+                }
+                .create()
+            val alertDialog = alertDialogBuilder.create()
+                .show()
         }
     }
 
