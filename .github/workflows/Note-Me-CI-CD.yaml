@@ -66,21 +66,21 @@ jobs:
           name: unit-tests-report.html
           path: app/build/reports/testDebugUnitTest/
 
-  android-tests:
-    name: 🔬 Instrumentation tests
-    needs: [ lint-check ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Execute android tests
-        run: ./gradlew connectedAndroidTest --stacktrace
-      - name: Generate report
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-tests-report.html
-          path: app/build/reports/testDebugAndroidTest/
+#  android-tests:
+#    name: 🔬 Instrumentation tests
+#    needs: [ lint-check ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Execute android tests
+#        run: ./gradlew connectedAndroidTest --stacktrace
+#      - name: Generate report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: android-tests-report.html
+#          path: app/build/reports/testDebugAndroidTest/
 
 
   generating-debug-apk: # Job to generate debug apk
@@ -127,7 +127,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Note-Me-Release
-          path: app/build/outputs/apk/release/app-release-signed.apk
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
 
 
   create-release: # Job to create new github release and upload the generated file
