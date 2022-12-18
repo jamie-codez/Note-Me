@@ -2,8 +2,12 @@ name: Note Me CI/CD
 on:
   pull_request:
     branches: [master]
+    tags:
+      - 'v*'
   push: 
     branches: [master]
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -114,7 +118,12 @@ jobs:
     needs: [generating-release-apk]
     runs-on: ubuntu-latest
     steps:
-
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+            fileName: 'keystore/note_me_keystore.jks'
+            encodedString: ${{ secrets.KEYSTORE }}
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
@@ -124,6 +133,9 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
             tag_name: ${{github.ref}}

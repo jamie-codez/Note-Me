@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             if (jwt.isBlank()) {
                 navController.navigate(R.id.action_splashFragment_to_authFragment)
             } else {
-                navController.navigate(R.id.action_splashFragment_to_homeActivity)
+                navController.navigate(R.id.action_splashFragment_to_homeFragment)
                 finish()
             }
         }, 2000)

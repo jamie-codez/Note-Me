@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:backgroundTint="@color/purple_200"
+            android:background="@color/purple_200"
             android:id="@+id/toolbar"/>
 
         <androidx.fragment.app.FragmentContainerView

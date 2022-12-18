@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#feff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.frags.NotesFragment">
 
@@ -32,6 +33,11 @@
         android:id="@+id/notes_recycler"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        tools:listitem="@layout/note_item"
+        app:spanCount="2"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:visibility="gone"
         tools:visibility="visible"
         android:layout_height="match_parent"

@@ -87,13 +87,13 @@
             android:alpha="0"
             android:visibility="invisible"
             android:elevation="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/register_btn"
-            app:layout_constraintEnd_toEndOf="@id/register_btn"
-            app:layout_constraintStart_toStartOf="@+id/register_btn"
-            app:layout_constraintTop_toTopOf="@id/register_btn" />
+            app:layout_constraintBottom_toBottomOf="@id/update_btn"
+            app:layout_constraintEnd_toEndOf="@id/update_btn"
+            app:layout_constraintStart_toStartOf="@+id/update_btn"
+            app:layout_constraintTop_toTopOf="@id/update_btn" />
 
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/update_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
