@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/search"
+        android:iconTint="@color/white"
+        android:title="@string/search"
+        app:actionProviderClass="android.app.MediaRouteActionProvider"
+        app:actionView="android.widget.SearchView"
+        app:showAsAction="ifRoom"
+        tools:targetApi="o" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/login"
+        android:iconTint="@color/white"
+        android:title="@string/logout"
+        app:showAsAction="never"
+        tools:targetApi="o" />
+</menu>

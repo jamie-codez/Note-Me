@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,6 +31,33 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private var selectedImageUri: Uri? = null
     private val viewModel: MainViewModel by viewModels()
+    private val requestPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                val intent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+                        type = "image/*"
+                    }
+                getResults.launch(intent)
+            } else {
+                Utils.snackBar(binding.root, "This permission is required")
+            }
+        }
+    private val getResults =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK && it.data != null) {
+                selectedImageUri = it.data?.data!!
+                try {
+                    val bm = MediaStore.Images.Media.getBitmap(
+                        requireActivity().contentResolver,
+                        selectedImageUri
+                    )
+                    binding.profileIv.setImageBitmap(bm)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +68,13 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.profileIv.setOnClickListener {
             if (checkPermissions()) {
-                goToGallery()
+                val intent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+                        type = "image/*"
+                    }
+                getResults.launch(intent)
             } else {
-                requestPermission()
+                requestPermissions.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
         binding.registerBtn.setOnClickListener {
@@ -116,19 +149,6 @@ class RegisterFragment : Fragment() {
             }
     }
 
-    private fun requestPermission() =
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION_CODE
-        )
-
-    private fun goToGallery() {
-        Intent(Intent.ACTION_PICK).apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(this, GALLERY_CODE)
-        }
-    }
 
     private fun checkPermissions(): Boolean =
         ActivityCompat.checkSelfPermission(
@@ -136,39 +156,6 @@ class RegisterFragment : Fragment() {
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_CODE &&
-            permissions.contentEquals(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)) &&
-            grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            goToGallery()
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            selectedImageUri = data.data
-            try {
-//                val contentUri = MediaStore.Images.Media.getContentUri(selectedImageUri.toString())
-//                val bm = MediaStore.Images.Media.getBitmap(
-//                    requireActivity().contentResolver,
-//                    selectedImageUri
-//                )
-                binding.profileIv.setImageURI(selectedImageUri)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Log.i(TAG, "onActivityResult: ${e.message}")
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -180,7 +167,5 @@ class RegisterFragment : Fragment() {
 
     companion object {
         private val TAG = RegisterFragment::class.java.simpleName
-        private const val PERMISSION_CODE = 200
-        private const val GALLERY_CODE = 300
     }
 }
