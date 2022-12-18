@@ -63,7 +63,8 @@ class LoginFragment : Fragment() {
             viewModel.login(login).observe(viewLifecycleOwner) { resp ->
                 if (resp?.message == "Login successful") {
                     Utils.setJWT(resp.accessToken, editor)
-                    navController.navigate(R.id.action_authFragment_to_homeActivity)
+                    Utils.setEmail(email, editor)
+                    navController.navigate(R.id.action_authFragment_to_homeFragment)
                     requireActivity().finish()
                 }else{
                     Utils.snackBar(binding.root,"Error occurred. Try again")

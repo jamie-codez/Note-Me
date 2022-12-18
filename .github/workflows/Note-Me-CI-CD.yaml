@@ -2,8 +2,12 @@ name: Note Me CI/CD
 on:
   pull_request:
     branches: [master]
+    tags:
+      - 'v*'
   push: 
     branches: [master]
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -62,9 +66,26 @@ jobs:
           name: unit-tests-report.html
           path: app/build/reports/testDebugUnitTest/
 
+  android-tests:
+    name: 🔬 Instrumentation tests
+    needs: [ lint-check ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Execute android tests
+        run: ./gradlew connectedAndroidTest --stacktrace
+      - name: Generate report
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-tests-report.html
+          path: app/build/reports/testDebugAndroidTest/
+
+
   generating-debug-apk: # Job to generate debug apk
     name: ⚙ Generate Debug APK
-    needs: [build,lint-check,unit-tests]
+    needs: [ build,lint-check,unit-tests ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -106,7 +127,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Note-Me-Release
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          path: app/build/outputs/apk/release/app-release-signed.apk
 
 
   create-release: # Job to create new github release and upload the generated file
@@ -114,7 +135,12 @@ jobs:
     needs: [generating-release-apk]
     runs-on: ubuntu-latest
     steps:
-
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+            fileName: 'keystore/note_me_keystore.jks'
+            encodedString: ${{ secrets.KEYSTORE }}
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
@@ -124,6 +150,9 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
             tag_name: ${{github.ref}}

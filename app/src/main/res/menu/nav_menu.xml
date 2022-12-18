@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/notesFragment"
+            android:icon="@drawable/note"
+            android:title="Notes" />
+        <item
+            android:id="@+id/editProfileFragment"
+            android:icon="@drawable/registration"
+            android:title="Edit Profile" />
+    </group>
+    <!--    <item-->
+    <!--        android:id="@+id/thirdFragment"-->
+    <!--        android:icon="@drawable/settings"-->
+    <!--        android:title="Settings" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/fourthFragment"-->
+    <!--        android:icon="@drawable/rss_feed"-->
+    <!--        android:title="Feeds" />-->
+    <!--    <item android:title="Communication">-->
+    <!--        <menu>-->
+    <!--            <item-->
+    <!--                android:id="@+id/rate_us"-->
+    <!--                android:title="Rate us" />-->
+    <!--            <item-->
+    <!--                android:id="@+id/send_feed_back"-->
+    <!--                android:title="Send Feedback" />-->
+    <!--        </menu>-->
+    <!--    </item>-->
+</menu>
