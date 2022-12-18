@@ -135,12 +135,12 @@ jobs:
     needs: [generating-release-apk]
     runs-on: ubuntu-latest
     steps:
-      - name: Decode Keystore
-        id: decode_keystore
-        uses: timheuer/base64-to-file@v1
-        with:
-            fileName: 'keystore/note_me_keystore.jks'
-            encodedString: ${{ secrets.KEYSTORE }}
+#      - name: Decode Keystore
+#        id: decode_keystore
+#        uses: timheuer/base64-to-file@v1
+#        with:
+#            fileName: 'keystore/note_me_keystore.jks'
+#            encodedString: ${{ secrets.KEYSTORE }}
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
