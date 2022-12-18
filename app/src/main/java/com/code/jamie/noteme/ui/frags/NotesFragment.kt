@@ -64,6 +64,7 @@ class NotesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
+        setUpMenu()
         return binding.root
     }
 

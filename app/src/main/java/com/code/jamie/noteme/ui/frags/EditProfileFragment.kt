@@ -19,7 +19,9 @@ import com.code.jamie.noteme.ui.viewmodels.MainViewModel
 import com.code.jamie.noteme.utils.Utils
 import com.google.firebase.storage.internal.Util
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!

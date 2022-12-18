@@ -12,7 +12,9 @@ import com.code.jamie.noteme.databinding.FragmentNewNoteBinding
 import com.code.jamie.noteme.models.vo.NoteRequestWrapper
 import com.code.jamie.noteme.ui.viewmodels.MainViewModel
 import com.code.jamie.noteme.utils.Utils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewNoteFragment : Fragment() {
     private var binding: FragmentNewNoteBinding? = null
     private val _binding get() = binding!!

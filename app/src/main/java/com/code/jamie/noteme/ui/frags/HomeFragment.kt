@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
         email = Utils.getEmail(prefs)
-        setUpMenu()
+//        setUpMenu()
         return binding.root
     }
 

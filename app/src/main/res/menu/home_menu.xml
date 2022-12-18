@@ -7,8 +7,6 @@
         android:icon="@drawable/search"
         android:iconTint="@color/white"
         android:title="@string/search"
-        app:actionProviderClass="android.app.MediaRouteActionProvider"
-        app:actionView="android.widget.SearchView"
         app:showAsAction="ifRoom"
         tools:targetApi="o" />
     <item

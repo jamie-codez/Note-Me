@@ -10,7 +10,9 @@ import com.code.jamie.noteme.databinding.FragmentAuthBinding
 import com.code.jamie.noteme.models.FragObject
 import com.code.jamie.noteme.ui.adapters.AuthAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthFragment : Fragment() {
     private lateinit var binding: FragmentAuthBinding
 
