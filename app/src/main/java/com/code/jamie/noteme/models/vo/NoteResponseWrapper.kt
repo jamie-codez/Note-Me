@@ -11,13 +11,14 @@ data class NoteResponseWrapper(
     @SerializedName(value = "notes") val notes: List<Note>
 )
 
+@Parcelize
 data class Note(
     @SerializedName(value = "_id") val id: String,
     @SerializedName(value = "createdAt") val createdAt: Long,
     @SerializedName(value = "note") val note: String,
     @SerializedName(value = "owner") val owner: String,
     @SerializedName(value = "title") val title: String
-)
+):Parcelable
 
 @Entity(tableName = "note")
 @Parcelize
