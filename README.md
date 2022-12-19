@@ -1,7 +1,7 @@
 ![Note Me Android CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg)
-[![Note Me CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=release)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
-[![Note Me CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=deployment)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
-[![Note Me CI/CD](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=page_build)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
+[![Note Me CI/CD Release](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=release)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
+[![Note Me CI/CD Deployment](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=deployment)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
+[![Note Me CI/CD Build](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml/badge.svg?event=page_build)](https://github.com/jamie-codez/Note-Me/actions/workflows/Note-Me-CI-CD.yaml)
 ## NoteMe Android App
 ### Description
 This is an android application that run natively on android devices
