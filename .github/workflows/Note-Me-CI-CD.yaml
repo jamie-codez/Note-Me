@@ -163,25 +163,25 @@ jobs:
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
-  firebase-deployment:
-    name: 📨 Deploy to firebase app distribution
-    needs: [generating-release-apk]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download APK from build
-        uses: actions/download-artifact@v1
-        with:
-          name: Note-Me-Release
-
-      - name: Upload Artifact to firebase App distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
-          file: Note-Me-Release/app-release-unsigned.apk
-          gitReleaseNotes: true
+#  firebase-deployment:
+#    name: 📨 Deploy to firebase app distribution
+#    needs: [generating-release-apk]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Download APK from build
+#        uses: actions/download-artifact@v1
+#        with:
+#          name: Note-Me-Release
+#
+#      - name: Upload Artifact to firebase App distribution
+#        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
+#        with:
+#          appId: ${{secrets.FIREBASE_APP_ID}}
+#          token: ${{secrets.FIREBASE_TOKEN}}
+#          groups: testers
+#          file: Note-Me-Release/app-release-unsigned.apk
+#          gitReleaseNotes: true
 
