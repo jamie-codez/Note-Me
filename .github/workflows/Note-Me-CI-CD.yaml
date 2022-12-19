@@ -156,7 +156,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: Note Me/app-release-unsigned.apk
+          asset_path: Note-Me-Release/app-release-unsigned.apk
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
@@ -179,4 +179,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: Note-Me/app-release-unsigned.apk
+          file: Note-Me-Release/app-release-unsigned.apk
