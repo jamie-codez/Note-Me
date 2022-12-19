@@ -135,12 +135,6 @@ jobs:
     needs: [generating-release-apk]
     runs-on: ubuntu-latest
     steps:
-#      - name: Decode Keystore
-#        id: decode_keystore
-#        uses: timheuer/base64-to-file@v1
-#        with:
-#            fileName: 'keystore/note_me_keystore.jks'
-#            encodedString: ${{ secrets.KEYSTORE }}
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
@@ -150,13 +144,10 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-#          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-#          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-#          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-            tag_name: ${{github.ref}}
-            release_name: Note Me ${{github.ref}}
+            tag_name: ${{github.ref}} v${{github.run_number}}
+            release_name: Note Me v${{github.run_number}}
 
       - name: Upload Release APK
         id: upload_release_asset
@@ -169,23 +160,23 @@ jobs:
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
-  firebase-deployment:
-    name: 📨 Deploy to firebase app distribution
-    needs: [generating-release-apk]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download APK from build
-        uses: actions/download-artifact@v1
-        with:
-          name: Note Me
-
-      - name: Upload Artifact to firebase App distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
-          file: Note-Me/app-debug.apk
+#  firebase-deployment:
+#    name: 📨 Deploy to firebase app distribution
+#    needs: [generating-release-apk]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Download APK from build
+#        uses: actions/download-artifact@v1
+#        with:
+#          name: Note Me
+#
+#      - name: Upload Artifact to firebase App distribution
+#        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+#        with:
+#          appId: ${{secrets.FIREBASE_APP_ID}}
+#          token: ${{secrets.FIREBASE_TOKEN}}
+#          groups: testers
+#          file: Note-Me/app-debug.apk
