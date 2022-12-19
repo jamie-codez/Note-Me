@@ -105,7 +105,8 @@ jobs:
         with:
           name: Note-Me-Debug
           path: app/build/outputs/apk/debug/app-debug.apk
-          
+          gitReleaseNotes: true
+
   generating-release-apk: # Job to generate debug apk
     name: ⚙ Generate Release APK
     needs: [build,lint-check,unit-tests]
@@ -128,6 +129,7 @@ jobs:
         with:
           name: Note-Me-Release
           path: app/build/outputs/apk/release/app-release-unsigned.apk
+          gitReleaseNotes: true
 
 
   create-release: # Job to create new github release and upload the generated file
@@ -157,26 +159,29 @@ jobs:
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
           asset_path: Note-Me-Release/app-release-unsigned.apk
+          gitReleaseNotes: true
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
-#  firebase-deployment:
-#    name: 📨 Deploy to firebase app distribution
-#    needs: [generating-release-apk]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Download APK from build
-#        uses: actions/download-artifact@v1
-#        with:
-#          name: Note-Me-Release
-#
-#      - name: Upload Artifact to firebase App distribution
-#        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
-#        with:
-#          appId: ${{secrets.FIREBASE_APP_ID}}
-#          token: ${{secrets.FIREBASE_TOKEN}}
-#          groups: testers
-#          file: Note-Me-Release/app-release-unsigned.apk
+  firebase-deployment:
+    name: 📨 Deploy to firebase app distribution
+    needs: [generating-release-apk]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download APK from build
+        uses: actions/download-artifact@v1
+        with:
+          name: Note-Me-Release
+
+      - name: Upload Artifact to firebase App distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: Note-Me-Release/app-release-unsigned.apk
+          gitReleaseNotes: true
+
