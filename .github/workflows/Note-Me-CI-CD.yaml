@@ -144,19 +144,19 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-            tag_name: ${{github.run_number}}
-            release_name: Note Me ${{github.run_number}}
+            tag_name: v${{github.run_number}}
+            release_name: v${{github.run_number}}
 
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
         env:
-#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: Note-Me-Debug/app-debug.apk
+          asset_path: Note-Me-Release/app-release-unsigned.apk
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
@@ -174,9 +174,9 @@ jobs:
           name: Note-Me-Release
 
       - name: Upload Artifact to firebase App distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: Note-Me/app-release-unsigned.apk
+          file: Note-Me-Release/app-release-unsigned.apk
