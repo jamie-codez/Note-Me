@@ -120,7 +120,7 @@ jobs:
           distribution: 'corretto'
           java-version: '11'
 
-      - name: Build debug apk
+      - name: Build release apk
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Upload release apk
@@ -138,45 +138,45 @@ jobs:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: Note-Me-Debug
+          name: Note-Me-Release
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-            tag_name: ${{github.ref}} v${{github.run_number}}
-            release_name: Note Me v${{github.run_number}}
+            tag_name: ${{github.run_number}}
+            release_name: Note Me ${{github.run_number}}
 
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
           asset_path: Note-Me-Debug/app-debug.apk
           asset_name: Note Me.apk
           asset_content_type: application/zip
 
-#  firebase-deployment:
-#    name: 📨 Deploy to firebase app distribution
-#    needs: [generating-release-apk]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Download APK from build
-#        uses: actions/download-artifact@v1
-#        with:
-#          name: Note Me
-#
-#      - name: Upload Artifact to firebase App distribution
-#        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
-#        with:
-#          appId: ${{secrets.FIREBASE_APP_ID}}
-#          token: ${{secrets.FIREBASE_TOKEN}}
-#          groups: testers
-#          file: Note-Me/app-debug.apk
+  firebase-deployment:
+    name: 📨 Deploy to firebase app distribution
+    needs: [generating-release-apk]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download APK from build
+        uses: actions/download-artifact@v1
+        with:
+          name: Note-Me-Release
+
+      - name: Upload Artifact to firebase App distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: Note-Me/app-release-unsigned.apk
