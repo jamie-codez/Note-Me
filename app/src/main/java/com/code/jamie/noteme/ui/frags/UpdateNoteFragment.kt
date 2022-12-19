@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.code.jamie.noteme.databinding.FragmentUpdateNoteBinding
+import com.code.jamie.noteme.models.vo.Note
 import com.code.jamie.noteme.models.vo.NoteOpRequestWrapper
 import com.code.jamie.noteme.ui.viewmodels.MainViewModel
 import com.code.jamie.noteme.utils.Utils
@@ -18,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateNoteFragment : Fragment() {
     private var _binding: FragmentUpdateNoteBinding? = null
+    private val args:UpdateNoteFragmentArgs by navArgs()
     private val binding get() = _binding!!
     private lateinit var prefs:SharedPreferences
     private lateinit var jwt:String
@@ -34,6 +37,8 @@ class UpdateNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.updateTitleEt.setText(args.note.title)
+        binding.updateNoteEt.setText(args.note.note)
         binding.fabUpdate.setOnClickListener {
             val noteTitle = binding.updateTitleEt.text.toString()
             val noteText = binding.updateNoteEt.text.toString()

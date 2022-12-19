@@ -55,6 +55,12 @@ class NotesFragment : Fragment() {
                     adapter = notesAdapter
                     layoutManager = GridLayoutManager(requireContext(), 2)
                 }
+                notesAdapter.setOnClickListener(object :NotesAdapter.OnItemClick{
+                    override fun onItemClick(position: Int) {
+                        val action = NotesFragmentDirections.actionNotesFragmentToUpdateNoteFragment(it.notes[position])
+                        binding.root.findNavController().navigate(action)
+                    }
+                })
             }
         }
     }
@@ -68,7 +74,7 @@ class NotesFragment : Fragment() {
         return binding.root
     }
 
-    fun setUpMenu() {
+    private fun setUpMenu() {
         requireActivity().addMenuProvider(
             object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

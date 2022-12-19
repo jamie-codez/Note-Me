@@ -9,8 +9,22 @@ import com.code.jamie.noteme.databinding.NoteItemBinding
 import com.code.jamie.noteme.models.vo.Note
 
 class NotesAdapter(private val list: List<Note>):RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
-    inner class NotesViewHolder(view: View):RecyclerView.ViewHolder(view){
+    private lateinit var listener:OnItemClick
+    interface OnItemClick{
+        fun onItemClick(position: Int)
+    }
+    fun setOnClickListener(listener:OnItemClick){
+        this.listener = listener
+    }
+    inner class NotesViewHolder(view: View,listener: OnItemClick):RecyclerView.ViewHolder(view){
         private val binding = NoteItemBinding.bind(view)
+        init {
+            binding.root.setOnClickListener {
+                if (adapterPosition!=RecyclerView.NO_POSITION){
+                    listener.onItemClick(adapterPosition)
+                }
+            }
+        }
         fun bind(note: Note){
             binding.noteTitleTv.text = note.title
             binding.noteContentTv.text = note.note
@@ -19,7 +33,8 @@ class NotesAdapter(private val list: List<Note>):RecyclerView.Adapter<NotesAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         return NotesViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.note_item,parent,false)
+            LayoutInflater.from(parent.context).inflate(R.layout.note_item,parent,false),
+            listener
         )
     }
 
